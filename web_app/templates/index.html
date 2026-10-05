@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Портал ДОТ РосНОУ</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Портал ДОТ РосНОУ</h1>
+        <p>Микросервисное приложение. Выберите раздел:</p>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('students') }}">Студенты</a></li>
+                <li><a href="{{ url_for('grades') }}">Оценки</a></li>
+                <li><a href="{{ url_for('retakes') }}">Пересдачи</a></li>
+            </ul>
+        </nav>
+    </div>
+</body>
+</html><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Студенты</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Список студентов</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+        {% if students %}
+        <table>
+            <thead>
+                <tr><th>ID</th><th>ФИО</th><th>Группа</th><th>Email</th></tr>
+            </thead>
+            <tbody>
+                {% for s in students %}
+                <tr>
+                    <td>{{ s.id }}</td>
+                    <td>{{ s.fullName }}</td>
+                    <td>{{ s.group }}</td>
+                    <td>{{ s.email }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>Студенты не найдены или сервис недоступен.</p>
+        {% endif %}
+        <a href="{{ url_for('index') }}" class="btn">← На главную</a>
+    </div>
+</body>
+</html>

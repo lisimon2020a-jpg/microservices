@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Оценки</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Оценки студентов</h1>
+        <form method="GET">
+            <div class="form-group">
+                <label>ID студента (пусто = все):</label>
+                <input type="number" name="studentId" value="{{ student_id or '' }}">
+            </div>
+            <button type="submit" class="btn">Фильтр</button>
+        </form>
+        {% if grades %}
+        <table>
+            <thead>
+                <tr><th>ID</th><th>ID студента</th><th>Дисциплина</th><th>Оценка</th><th>Дата</th></tr>
+            </thead>
+            <tbody>
+                {% for g in grades %}
+                <tr>
+                    <td>{{ g.id }}</td>
+                    <td>{{ g.studentId }}</td>
+                    <td>{{ g.discipline }}</td>
+                    <td>{{ g.value }}</td>
+                    <td>{{ g.date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>Оценки не найдены.</p>
+        {% endif %}
+        <a href="{{ url_for('index') }}" class="btn">← На главную</a>
+    </div>
+</body>
+</html>
