@@ -11,7 +11,7 @@ students = [
 ]
 
 @app.route('/students', methods=['GET'])
-def get_students():
+def get_students()
     return jsonify(students)
 
 @app.route('/students/<int:student_id>', methods=['GET'])
